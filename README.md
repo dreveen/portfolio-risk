@@ -4,7 +4,7 @@
 
 How much can you lose on 10,000 € invested for one year? This project answers with a **Monte Carlo simulation**: it replays thousands of possible years built from real market days and reads the risk off the results.
 
-![10,000 simulated years and where the money ends up (chart labels in Italian)](docs/risultati.png)
+![10,000 simulated years and where the money ends up](docs/results_en.png)
 
 ## The idea in four steps
 
@@ -43,7 +43,7 @@ Note that the probability of a loss barely changes between portfolios: what chan
 
 Open `demo.html` in a browser. Move the five sliders or pick a preset and the risk figures and charts update. Everything runs in the page: no server, no Python.
 
-Demo and charts are in Italian. I checked the demo's results against an independent Python calculation on the same drawn days: the four presets match exactly.
+The demo is in Italian. I checked the demo's results against an independent Python calculation on the same drawn days: the four presets match exactly.
 
 ## Run it yourself
 

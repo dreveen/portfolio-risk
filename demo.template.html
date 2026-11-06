@@ -19,68 +19,120 @@ body{margin:0;min-height:100vh;color:var(--text);font:16px/1.55 system-ui,-apple
   background-attachment:fixed}
 .wrap{max-width:1120px;margin:0 auto;padding:36px 16px 64px}
 h1{font-size:clamp(1.6rem,4vw,2.3rem);margin:0 0 6px;letter-spacing:-.02em}
-.lead{color:var(--muted);margin:0 0 26px;max-width:720px}
+.lead{color:var(--muted);margin:0 0 22px;max-width:720px}
 .card{background:var(--glass);border:1px solid var(--edge);border-radius:18px;padding:20px;
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 10px 40px rgba(0,0,0,.28)}
-.grid{display:grid;grid-template-columns:330px 1fr;gap:18px;align-items:start}
 h2{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 14px;font-weight:600}
+
+/* come funziona, in tre passi */
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.how .card{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;padding:16px 18px}
+.how .n{grid-row:span 2;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:650;
+  background:rgba(61,220,151,.16);border:1px solid var(--green);color:var(--green)}
+.how b{font-size:1rem}
+.how span{color:var(--muted);font-size:.88rem;line-height:1.45}
+
+.grid{display:grid;grid-template-columns:330px 1fr;gap:18px;align-items:start}
 .row{margin-bottom:16px}
 .row .top{display:flex;justify-content:space-between;font-size:.95rem;margin-bottom:6px}
 .row .top b{color:var(--green);font-variant-numeric:tabular-nums}
 .row small{color:var(--muted)}
 input[type=range]{width:100%;accent-color:var(--green)}
-.presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.amount{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.amount label{font-size:1.4rem;color:var(--green)}
+.amount input{flex:1;min-width:0;font:inherit;font-size:1.25rem;font-weight:600;color:var(--text);background:rgba(255,255,255,.07);
+  border:1px solid var(--edge);border-radius:12px;padding:8px 12px;font-variant-numeric:tabular-nums}
+.amount input:focus{outline:none;border-color:var(--green)}
+.pdesc{min-height:2.9em;margin:0 0 18px;font-size:.86rem;color:var(--muted);line-height:1.45}
 button{font:inherit;font-size:.88rem;color:var(--text);background:var(--glass);border:1px solid var(--edge);
   border-radius:999px;padding:6px 14px;cursor:pointer}
 button:hover{border-color:var(--green)}
 button.on{background:rgba(61,220,151,.18);border-color:var(--green)}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+
+.summary{margin-bottom:14px;font-size:1.05rem;line-height:1.7}
+.summary b{font-weight:650;font-variant-numeric:tabular-nums}
+.summary .g{color:var(--green)} .summary .r{color:var(--red)}
+.summary .sub{display:block;margin-top:6px;font-size:.88rem;color:var(--muted)}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
 .kpi{padding:14px 16px}
-.kpi .v{font-size:1.55rem;font-weight:650;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi .v{font-size:1.5rem;font-weight:650;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .kpi .l{font-size:.78rem;color:var(--muted);line-height:1.35;margin-top:2px}
+.kpi .dl{font-size:.76rem;margin-top:6px;min-height:1.1em;font-variant-numeric:tabular-nums}
 .kpi.bad .v{color:var(--red)} .kpi.good .v{color:var(--green)}
+.up{color:var(--green)} .down{color:var(--red)}
+
 .charts{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}
-canvas{width:100%;display:block}
 .charts>div{min-width:0}
-.ct{font-size:.9rem;margin:0 0 8px;color:var(--text)}
+canvas{width:100%;display:block}
+.ct{font-size:.95rem;margin:0 0 8px;color:var(--text);font-weight:600}
+.cap{font-size:.8rem;color:var(--muted);line-height:1.5;margin:8px 0 0}
+.cap i{display:inline-block;width:18px;height:0;border-top:2.5px solid var(--green);vertical-align:middle;margin-right:4px}
+.cap i.rd{border-top:2px dashed var(--red)}
+.cap em{font-style:normal;color:var(--red)}
 .note{margin-top:18px;color:var(--muted);font-size:.88rem}
 .note b{color:var(--text)}
 .warn{display:none;color:var(--orange);font-size:.9rem}
-@media(max-width:860px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}.how{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Quanto puoi perdere?</h1>
-  <p class="lead">Scegli come dividere 10.000 € tra cinque investimenti. La pagina simula 5.000 anni possibili, pescando a caso giorni di borsa reali del 2016&ndash;2025, e ti mostra il rischio.</p>
+  <p class="lead">Scegli quanto investire per un anno. Nessuno sa cosa farà il mercato, ma puoi vedere quanto può andare male: questa pagina simula 5.000 anni possibili e ti mostra il rischio della tua scelta.</p>
+
+  <div class="how">
+    <div class="card"><span class="n">1</span><b>Scegli cifra e divisione</b><span>Scrivi quanto investi, poi scegli un preset o muovi gli slider: quanto metti in ognuno dei cinque investimenti.</span></div>
+    <div class="card"><span class="n">2</span><b>La pagina simula 5.000 anni</b><span>Ogni anno è fatto di 252 giorni di borsa veri (2016&ndash;2025) pescati a caso.</span></div>
+    <div class="card"><span class="n">3</span><b>Leggi il rischio</b><span>Il risultato tipico e quanto perdi negli anni peggiori. Cambia divisione e guarda cosa cambia.</span></div>
+  </div>
 
   <div class="grid">
     <div class="card">
-      <h2>Il tuo portafoglio</h2>
+      <h2>1 · Quanto investi</h2>
+      <div class="amount">
+        <label for="amount">€</label>
+        <input type="number" id="amount" value="10000" min="100" max="10000000" step="100" inputmode="numeric">
+      </div>
+      <div class="presets" id="amounts"></div>
+      <p class="warn" id="awarn">Scrivi una cifra tra 100 € e 10.000.000 €.</p>
+      <h2 style="margin-top:20px">2 · Come li dividi</h2>
       <div class="presets" id="presets"></div>
+      <p class="pdesc" id="pdesc"></p>
       <div id="sliders"></div>
       <p class="warn" id="warn">Metti almeno un investimento sopra zero.</p>
       <p class="note" style="margin:0">I pesi vengono riportati a 100% in automatico.</p>
     </div>
 
     <div>
+      <div class="card summary" id="summary"></div>
       <div class="kpis">
-        <div class="card kpi good"><div class="v" id="k-med">–</div><div class="l">Valore dopo un anno nel caso mediano</div></div>
-        <div class="card kpi bad"><div class="v" id="k-var">–</div><div class="l">Perdita massima in 19 casi su 20 (VaR 95%)</div></div>
-        <div class="card kpi bad"><div class="v" id="k-cvar">–</div><div class="l">Perdita media nel 5% dei casi peggiori</div></div>
-        <div class="card kpi"><div class="v" id="k-prob">–</div><div class="l">Probabilità di chiudere l'anno in perdita</div></div>
+        <div class="card kpi good"><div class="v" id="k-med">–</div><div class="l">Caso tipico: valore dopo un anno</div><div class="dl" id="d-med"></div></div>
+        <div class="card kpi bad"><div class="v" id="k-var">–</div><div class="l">Perdita massima in 19 anni su 20 <span style="opacity:.7">(VaR 95%)</span></div><div class="dl" id="d-var"></div></div>
+        <div class="card kpi bad"><div class="v" id="k-cvar">–</div><div class="l">Perdita media negli anni peggiori (il 5% più sfortunato)</div><div class="dl" id="d-cvar"></div></div>
+        <div class="card kpi"><div class="v" id="k-prob">–</div><div class="l">Probabilità di chiudere l'anno in perdita</div><div class="dl" id="d-prob"></div></div>
       </div>
       <div class="card">
+        <h2>3 · Cosa può succedere ai tuoi <span id="amt-t">10.000 €</span></h2>
         <div class="charts">
-          <div><p class="ct">I futuri possibili</p><canvas id="fan" height="330"></canvas></div>
-          <div><p class="ct">Dove finiscono i soldi dopo un anno</p><canvas id="hist" height="330"></canvas></div>
+          <div>
+            <p class="ct">I 5.000 anni possibili</p>
+            <canvas id="fan" height="330"></canvas>
+            <p class="cap">Ogni linea sottile è un anno possibile. <i></i>Il caso tipico. <i class="rd"></i>Il limite del 5% degli anni peggiori: sotto questa linea finiscono solo 1 anno su 20.</p>
+          </div>
+          <div>
+            <p class="ct">Dove finiscono i soldi dopo un anno</p>
+            <canvas id="hist" height="330"></canvas>
+            <p class="cap">Ogni barra conta quanti anni finiscono a quella cifra. A sinistra della linea punteggiata (la cifra di partenza) hai perso, a destra hai guadagnato. <em>In rosso il 5% degli anni peggiori.</em></p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="card note" style="margin-top:18px">
-    <b>Come leggerlo.</b> Ogni futuro è un anno di 252 giorni di borsa pescati a caso dalla storia (stessi giorni per tutti e cinque gli strumenti, così le correlazioni restano vere). Il <b>VaR 95%</b> è la perdita che viene superata solo nel 5% dei futuri.<br><br>
+    <b>Come mai 5.000 anni?</b> Nessuno può prevedere un solo anno, ma se ne simulano migliaia il quadro complessivo diventa stabile: è il metodo Monte Carlo, dal casinò, perché come alla roulette il singolo giro è imprevedibile ma i tanti giri no. Si pescano interi giorni di borsa veri (tutti e cinque gli investimenti insieme), così restano vere le correlazioni e i giorni di crollo.<br><br>
     <b>Limiti.</b> Il 2016&ndash;2025 è stato un decennio molto buono per le azioni, quindi i risultati sono probabilmente ottimistici. Il metodo suppone che i giorni siano indipendenti e quindi sottostima le crisi lunghe, come il 2008. È un esercizio didattico, non un consiglio di investimento.
   </div>
 </div>
@@ -88,14 +140,16 @@ canvas{width:100%;display:block}
 <script>
 const DATA = __DATA__;
 const NAMES = {SPY:"Azioni USA (S&P 500)", AAPL:"Apple", VGK:"Azioni europee", AGG:"Obbligazioni USA", GLD:"Oro"};
-const T = DATA.tickers, K = T.length, N = DATA.returns.length, SIMS = 5000, H = 252, START = 10000;
+const T = DATA.tickers, K = T.length, N = DATA.returns.length, SIMS = 5000, H = 252;
+let START = 10000; // euro investiti, scelti dall'utente
 const GREEN = "#3ddc97", RED = "#ff5c6c", MUTED = "#8a98a8";
 const PRESETS = {
-  "Prudente":    {SPY:10, AAPL:0,  VGK:10, AGG:70, GLD:10},
-  "Bilanciato":  {SPY:40, AAPL:10, VGK:10, AGG:30, GLD:10},
-  "Aggressivo":  {SPY:40, AAPL:40, VGK:20, AGG:0,  GLD:0},
-  "Solo Apple":  {SPY:0,  AAPL:100,VGK:0,  AGG:0,  GLD:0}
+  "Prudente":    {w:{SPY:10, AAPL:0,  VGK:10, AGG:70, GLD:10}, d:"70% obbligazioni: oscilla poco, ma guadagna anche poco."},
+  "Bilanciato":  {w:{SPY:40, AAPL:10, VGK:10, AGG:30, GLD:10}, d:"Un po' di tutto: azioni, obbligazioni e oro."},
+  "Aggressivo":  {w:{SPY:40, AAPL:40, VGK:20, AGG:0,  GLD:0},  d:"Solo azioni: più guadagno possibile, ma perdite più grandi."},
+  "Solo Apple":  {w:{SPY:0,  AAPL:100,VGK:0,  AGG:0,  GLD:0},  d:"Tutti i soldi su una sola azione: il rischio più alto."}
 };
+let currentPreset = null;
 
 // rendimenti giornalieri (righe = giorni, colonne = strumenti)
 const RF = new Float32Array(N * K);
@@ -140,7 +194,14 @@ function bands(paths){ // 5%, 50%, 95% giorno per giorno (ogni 3 giorni, per vel
   return out;
 }
 
-const eur = v => String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " €";
+const num = v => String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const eur = v => num(v) + " €";
+function ticks(lo, hi, n){ // valori "tondi" per gli assi
+  const raw = (hi - lo) / n, mag = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / mag;
+  const step = (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * mag, out = [];
+  for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) out.push(v);
+  return out;
+}
 
 function setupCanvas(c){
   const w = c.parentElement.clientWidth, h = +c.getAttribute("height"), dpr = window.devicePixelRatio || 1;
@@ -150,39 +211,49 @@ function setupCanvas(c){
 }
 function drawFan(paths, b){
   const {g,w,h} = setupCanvas(document.getElementById("fan"));
-  const L = 52, R = 8, Tp = 8, B = 26;
+  const L = 54, R = 8, Tp = 10, B = 34;
   let lo = Infinity, hi = -Infinity;
   b.forEach(r => { lo = Math.min(lo, r[1]); hi = Math.max(hi, r[3]); });
   lo = Math.min(lo, START) * .97; hi = Math.max(hi, START) * 1.03;
   const X = d => L + d/H*(w-L-R), Y = v => Tp + (1-(v-lo)/(hi-lo))*(h-Tp-B);
-  g.clearRect(0,0,w,h); g.font = "11px system-ui"; g.fillStyle = MUTED; g.strokeStyle = "rgba(255,255,255,.08)";
-  for (let i = 0; i <= 4; i++){ const v = lo + (hi-lo)*i/4, y = Y(v); g.beginPath(); g.moveTo(L,y); g.lineTo(w-R,y); g.stroke(); g.fillText(Math.round(v/100)*100, 4, y+4); }
-  g.fillText("giorni di borsa →", w-100, h-6);
+  g.clearRect(0,0,w,h); g.font = "11px system-ui"; g.fillStyle = MUTED; g.strokeStyle = "rgba(255,255,255,.08)"; g.lineWidth = 1;
+  ticks(lo, hi, 5).forEach(v => { const y = Y(v); g.beginPath(); g.moveTo(L,y); g.lineTo(w-R,y); g.stroke(); g.textAlign = "right"; g.fillText(num(v), L-6, y+4); });
+  g.textAlign = "center";
+  [0, 63, 126, 189, 252].forEach(d => g.fillText(d === 0 ? "oggi" : d === 252 ? "1 anno" : Math.round(d/21) + " mesi", Math.min(Math.max(X(d), L+14), w-R-16), h-12));
+  g.save(); g.beginPath(); g.rect(L, Tp, w-L-R, h-Tp-B); g.clip();
   g.beginPath(); b.forEach((r,i) => i ? g.lineTo(X(r[0]),Y(r[3])) : g.moveTo(X(r[0]),Y(r[3])));
   for (let i = b.length-1; i >= 0; i--) g.lineTo(X(b[i][0]), Y(b[i][1]));
   g.closePath(); g.fillStyle = "rgba(61,220,151,.13)"; g.fill();
-  g.strokeStyle = "rgba(61,220,151,.10)"; g.lineWidth = 1;
+  g.strokeStyle = "rgba(61,220,151,.10)";
   for (let s = 0; s < 120; s++){ g.beginPath(); for (let d = 0; d <= H; d += 3){ const v = paths[s*(H+1)+d]; d ? g.lineTo(X(d),Y(v)) : g.moveTo(X(d),Y(v)); } g.stroke(); }
-  g.setLineDash([4,4]); g.strokeStyle = "rgba(255,255,255,.35)"; g.beginPath(); g.moveTo(L,Y(START)); g.lineTo(w-R,Y(START)); g.stroke(); g.setLineDash([]);
-  g.strokeStyle = GREEN; g.lineWidth = 2.2; g.beginPath(); b.forEach((r,i) => i ? g.lineTo(X(r[0]),Y(r[2])) : g.moveTo(X(r[0]),Y(r[2]))); g.stroke();
-  g.strokeStyle = RED; g.lineWidth = 1.8; g.setLineDash([5,4]); g.beginPath(); b.forEach((r,i) => i ? g.lineTo(X(r[0]),Y(r[1])) : g.moveTo(X(r[0]),Y(r[1]))); g.stroke(); g.setLineDash([]);
+  g.restore();
+  g.setLineDash([4,4]); g.strokeStyle = "rgba(255,255,255,.4)"; g.beginPath(); g.moveTo(L,Y(START)); g.lineTo(w-R,Y(START)); g.stroke(); g.setLineDash([]);
+  g.textAlign = "right"; g.fillStyle = "rgba(255,255,255,.65)"; g.fillText(eur(START) + " di partenza", w-R-4, Y(START)-5);
+  g.strokeStyle = GREEN; g.lineWidth = 2.4; g.beginPath(); b.forEach((r,i) => i ? g.lineTo(X(r[0]),Y(r[2])) : g.moveTo(X(r[0]),Y(r[2]))); g.stroke();
+  g.strokeStyle = RED; g.lineWidth = 2; g.setLineDash([5,4]); g.beginPath(); b.forEach((r,i) => i ? g.lineTo(X(r[0]),Y(r[1])) : g.moveTo(X(r[0]),Y(r[1]))); g.stroke(); g.setLineDash([]);
 }
 function drawHist(a){
   const {g,w,h} = setupCanvas(document.getElementById("hist"));
-  const L = 8, R = 8, Tp = 8, B = 26, BINS = 48;
+  const L = 8, R = 8, Tp = 22, B = 34, BINS = 48;
   const lo = a.sorted[0], hi = pct(a.sorted, .995), step = (hi-lo)/BINS, cnt = new Array(BINS).fill(0);
   for (const v of a.sorted){ if (v > hi) continue; cnt[Math.min(BINS-1, Math.floor((v-lo)/step))]++; }
   const mx = Math.max(...cnt), X = v => L + (v-lo)/(hi-lo)*(w-L-R), bw = (w-L-R)/BINS;
-  g.clearRect(0,0,w,h); g.font = "11px system-ui"; g.fillStyle = MUTED;
+  g.clearRect(0,0,w,h); g.font = "11px system-ui";
   cnt.forEach((c,i) => { const x0 = lo+i*step, bh = c/mx*(h-Tp-B);
     g.fillStyle = (x0+step <= a.p5) ? RED : GREEN; g.globalAlpha = .8; g.fillRect(L+i*bw+.5, h-B-bh, bw-1, bh); });
-  g.globalAlpha = 1; g.fillStyle = MUTED;
-  g.setLineDash([4,4]); g.strokeStyle = "rgba(255,255,255,.35)"; g.beginPath(); g.moveTo(X(START),Tp); g.lineTo(X(START),h-B); g.stroke(); g.setLineDash([]);
-  for (let i = 0; i <= 3; i++){ const v = lo + (hi-lo)*i/3; g.fillText(Math.round(v/100)*100, Math.min(X(v)-10, w-34), h-8); }
+  g.globalAlpha = 1;
+  const sx = X(START);
+  g.setLineDash([4,4]); g.strokeStyle = "rgba(255,255,255,.5)"; g.beginPath(); g.moveTo(sx,Tp-6); g.lineTo(sx,h-B); g.stroke(); g.setLineDash([]);
+  g.fillStyle = "rgba(255,255,255,.7)";
+  g.textAlign = "right"; g.fillText("← perdi", sx-6, 12);
+  g.textAlign = "left"; g.fillText("guadagni →", sx+6, 12);
+  g.fillStyle = MUTED; g.textAlign = "center";
+  ticks(lo, hi, 4).forEach(v => g.fillText(num(v), Math.min(Math.max(X(v), 18), w-18), h-14));
+  g.fillText("valore dopo un anno (€)", w/2, h-1);
 }
 
 // ---- interfaccia
-const sliders = document.getElementById("sliders"), vals = {};
+const sliders = document.getElementById("sliders");
 T.forEach(t => {
   const d = document.createElement("div"); d.className = "row";
   d.innerHTML = `<div class="top"><span>${NAMES[t]} <small>${t}</small></span><b id="p-${t}"></b></div><input type="range" min="0" max="100" step="5" id="s-${t}">`;
@@ -190,18 +261,54 @@ T.forEach(t => {
 });
 const presetBox = document.getElementById("presets");
 Object.keys(PRESETS).forEach(n => {
-  const b = document.createElement("button"); b.textContent = n; b.onclick = () => { setPreset(n); };
+  const b = document.createElement("button"); b.textContent = n; b.onclick = () => setPreset(n);
   presetBox.appendChild(b);
 });
-function setPreset(n){
-  T.forEach(t => document.getElementById("s-"+t).value = PRESETS[n][t]);
+const amountBox = document.getElementById("amounts");
+[1000, 5000, 10000, 50000, 100000].forEach(v => {
+  const b = document.createElement("button"); b.textContent = eur(v); b.dataset.v = v;
+  b.onclick = () => { document.getElementById("amount").value = v; update(); };
+  amountBox.appendChild(b);
+});
+document.getElementById("amount").addEventListener("input", update);
+function markPreset(n){
+  currentPreset = n;
   [...presetBox.children].forEach(b => b.classList.toggle("on", b.textContent === n));
-  update();
+  document.getElementById("pdesc").textContent = n ? PRESETS[n].d : "Divisione personalizzata: guarda come cambiano i numeri a destra.";
+}
+function setPreset(n){
+  T.forEach(t => document.getElementById("s-"+t).value = PRESETS[n].w[t]);
+  markPreset(n); update();
 }
 let queued = false;
 function update(){ if (!queued){ queued = true; requestAnimationFrame(() => { queued = false; run(); }); } }
+
+let prev = null;
+function delta(id, diff, higherIsGood, unit){
+  const el = document.getElementById(id);
+  if (!prev || Math.abs(diff) < (unit === "pp" ? .05 : .5)){ el.textContent = ""; el.className = "dl"; return; }
+  const good = higherIsGood ? diff > 0 : diff < 0;
+  const txt = unit === "pp" ? Math.abs(diff).toFixed(1).replace(".", ",") + " punti" : eur(Math.abs(diff));
+  el.className = "dl " + (good ? "up" : "down");
+  el.textContent = (diff > 0 ? "▲ " : "▼ ") + txt + " rispetto a prima";
+}
+function summary(a){
+  const oneIn = a.pLoss >= 1 ? "circa <b>1 anno su " + Math.max(2, Math.round(100 / a.pLoss)) + "</b>" : "<b>quasi mai</b>";
+  document.getElementById("summary").innerHTML =
+    `Con questa divisione, in <b>19 anni su 20</b> non perdi più di <b class="r">${eur(a.var95)}</b>. ` +
+    `Nel caso tipico i tuoi ${eur(START)} diventano <b class="g">${eur(a.median)}</b>. ` +
+    `Chiudi l'anno in perdita ${oneIn}.` +
+    `<span class="sub">Negli anni peggiori (il 5% più sfortunato) la perdita media è di ${eur(a.cvar)}.</span>`;
+}
 function run(){
-  const raw = T.map(t => +document.getElementById("s-"+t).value), tot = raw.reduce((a,b)=>a+b,0);
+  const amt = Math.round(+document.getElementById("amount").value), aw = document.getElementById("awarn");
+  if (!(amt >= 100 && amt <= 10000000)){ aw.style.display = "block"; return; }
+  aw.style.display = "none";
+  if (amt !== START) prev = null; // cifre diverse: il confronto "rispetto a prima" non avrebbe senso
+  START = amt;
+  document.getElementById("amt-t").textContent = eur(START);
+  [...amountBox.children].forEach(b => b.classList.toggle("on", +b.dataset.v === START));
+  const raw =T.map(t => +document.getElementById("s-"+t).value), tot = raw.reduce((a,b)=>a+b,0);
   const warn = document.getElementById("warn"); warn.style.display = tot ? "none" : "block";
   T.forEach((t,i) => document.getElementById("p-"+t).textContent = tot ? Math.round(raw[i]/tot*100) + "%" : "0%");
   if (!tot) return;
@@ -210,10 +317,17 @@ function run(){
   document.getElementById("k-var").textContent = "−" + eur(a.var95);
   document.getElementById("k-cvar").textContent = "−" + eur(a.cvar);
   document.getElementById("k-prob").textContent = a.pLoss.toFixed(1).replace(".", ",") + "%";
-  drawFan(paths, bands(paths)); drawHist(a);
+  if (prev){
+    delta("d-med", a.median - prev.median, true);
+    delta("d-var", a.var95 - prev.var95, false);
+    delta("d-cvar", a.cvar - prev.cvar, false);
+    delta("d-prob", a.pLoss - prev.pLoss, false, "pp");
+  }
+  summary(a); drawFan(paths, bands(paths)); drawHist(a);
+  prev = {median: a.median, var95: a.var95, cvar: a.cvar, pLoss: a.pLoss};
   window.LAST = {w, median: a.median, var95: a.var95, cvar: a.cvar, pLoss: a.pLoss};
 }
-T.forEach(t => document.getElementById("s-"+t).addEventListener("input", () => { [...presetBox.children].forEach(b => b.classList.remove("on")); update(); }));
+T.forEach(t => document.getElementById("s-"+t).addEventListener("input", () => { markPreset(null); update(); }));
 window.addEventListener("resize", update);
 setPreset("Bilanciato");
 </script>
